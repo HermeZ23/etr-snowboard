@@ -72,6 +72,7 @@ struct TGameData {
 	int wind_id;
 	std::size_t theme_id;
 	bool race_finished_with_highscore = false;
+	std::string newPlayerName = "";
 
 	// race results (better in player.ctrl ?)
 	float time;				// reached time

@@ -126,6 +126,7 @@ public:
 	~CPlayers();
 
 	TPlayer* GetPlayer(std::size_t index) { return &plyr[index]; }
+	size_t GetPlayerIndexByName(std::string playerName);
 	void AddPassedCup(const std::string& cup);
 	void AddPlayer(const std::string& name, const std::string& avatar);
 	bool LoadPlayers();

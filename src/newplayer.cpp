@@ -39,8 +39,10 @@ static TWidget* textbuttons[2];
 static TTextField* textfield;
 
 void QuitAndAddPlayer() {
-	if (textfield->Text().getSize() > 0)
+	if (textfield->Text().getSize() > 0){
 		Players.AddPlayer(textfield->Text(), Players.GetDirectAvatarName(avatar->GetValue()));
+		g_game.newPlayerName = textfield->Text();
+	}
 	State::manager.RequestEnterState(Regist);
 }
 

@@ -26,6 +26,7 @@ GNU General Public License for more details.
 #include "textures.h"
 #include "tux.h"
 #include "physics.h"
+#include <cstring>
 
 // --------------------------------------------------------------------
 //				administration of events and cups
@@ -235,6 +236,18 @@ void CPlayers::AllocControl(std::size_t player) {
 	if (plyr[player].ctrl != nullptr) return;
 	plyr[player].ctrl = new CControl;
 }
+
+size_t CPlayers::GetPlayerIndexByName(std::string playerName) { 
+ 	auto iter = std::find_if(
+ 		std::begin(plyr),
+ 		std::end(plyr),
+ 		[&playerName](const TPlayer &arg) { 
+		   return arg.name.compare(playerName) == 0; 
+		}
+	);
+ 	size_t index = std::distance(plyr.begin(), iter);
+ 	return index; 
+ }
 
 // ----------------------- avatars ------------------------------------
 

@@ -115,6 +115,10 @@ void CRegist::Enter() {
 
 	ResetGUI();
 	player = AddUpDown(area.left + framewidth + 8, area.top, 0, (int)Players.numPlayers() - 1, (int)g_game.start_player);
+	if (g_game.newPlayerName.compare("") != 0 ) {
+		size_t new_player_index = Players.GetPlayerIndexByName(g_game.newPlayerName);
+		player->SetValue(new_player_index);
+	}
 	character = AddUpDown(area.left + framewidth * 2 + arrowwidth + 8, area.top, 0, (int)Char.CharList.size() - 1, 0);
 	int siz = FT.AutoSizeN(5);
 	textbuttons[0] = AddTextButton(Trans.Text(60), CENTER, AutoYPosN(62), siz);
