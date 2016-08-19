@@ -31,6 +31,7 @@ GNU General Public License for more details.
 #include "game_type_select.h"
 #include "newplayer.h"
 #include "winsys.h"
+#include "score.h"
 
 CRegist Regist;
 
@@ -45,7 +46,14 @@ void QuitRegistration() {
 
 	g_game.character = &Char.CharList[character->GetValue()];
 	Char.FreeCharacterPreviews(); // From here on, character previews are no longer required
-	State::manager.RequestEnterState(GameTypeSelect);
+
+	if (g_game.race_finished_with_highscore) {
+		//snowboard action
+		Score.CalcRaceResult(); // aka add to highscore
+		State::manager.RequestEnterState(Score);
+	} else {
+		State::manager.RequestEnterState(GameTypeSelect);
+	}
 }
 
 void CRegist::Keyb(sf::Keyboard::Key key, bool release, int x, int y) {
@@ -58,7 +66,9 @@ void CRegist::Keyb(sf::Keyboard::Key key, bool release, int x, int y) {
 		case sf::Keyboard::Return:
 			if (focussed == textbuttons[1]) {
 				g_game.player = Players.GetPlayer(player->GetValue());
+
 				State::manager.RequestEnterState(NewPlayer);
+				
 			} else QuitRegistration();
 			break;
 		default:

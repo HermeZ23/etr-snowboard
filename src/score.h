@@ -50,8 +50,10 @@ private:
 	void Keyb(sf::Keyboard::Key key, bool release, int x, int y);
 	void Mouse(int button, int state, int x, int y);
 	void Motion(int x, int y);
+	void exit();
 public:
 	int AddScore(const std::string& group, const std::string& course, TScore&& score);
+	int getHighScorePosition();
 	const TScoreList* GetScorelist(const std::string& group, const std::string& course) const;
 	void PrintScorelist(const std::string& group, const std::string& course) const;
 	bool SaveHighScore() const;

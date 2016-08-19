@@ -23,6 +23,7 @@ GNU General Public License for more details.
 #include "course.h"
 #include "tux.h"
 #include "audio.h"
+
 #include "particles.h"
 #include "game_ctrl.h"
 #include "game_over.h"

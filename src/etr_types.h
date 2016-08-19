@@ -71,6 +71,7 @@ struct TGameData {
 	int snow_id;
 	int wind_id;
 	std::size_t theme_id;
+	bool race_finished_with_highscore = false;
 
 	// race results (better in player.ctrl ?)
 	float time;				// reached time

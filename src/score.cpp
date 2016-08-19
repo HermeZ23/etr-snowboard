@@ -29,6 +29,7 @@ GNU General Public License for more details.
 #include "course.h"
 #include "spx.h"
 #include "winsys.h"
+#include "race_select.h"
 
 CScore Score;
 
@@ -59,6 +60,29 @@ int CScore::AddScore(const std::string& group, const std::string& course, TScore
 		list->numScores++;
 	}
 	return pos;
+}
+
+int CScore::getHighScorePosition() {
+
+	const std::string& group = Course.currentCourseList->name;
+	const std::string& course = g_game.course->dir;
+	TScoreList *list = &Scorelist[group][course];
+	int num = list->numScores;
+
+	int herringpt = g_game.herring * 10;
+	double timept = Course.GetDimensions().y - (g_game.time * 10);
+	g_game.score = (int)(herringpt + timept);
+	if (g_game.score < 0) g_game.score = 0;
+
+	// player is the first who finished the track
+	if (num == 0) return 0;
+
+	// check if player was better than anyone in HighScore
+	for (int i=0; i<num; i++) {
+		if (g_game.score > list->scores[i].points) return i;  
+	}
+
+	return num;
 }
 
 // for testing:
@@ -175,8 +199,9 @@ void CScore::Keyb(sf::Keyboard::Key key, bool release, int x, int y) {
 	KeyGUI(key, release);
 	if (release) return;
 	switch (key) {
+		case sf::Keyboard::Return:
 		case sf::Keyboard::Escape:
-			State::manager.RequestEnterState(*State::manager.PreviousState());
+			exit();
 			break;
 		case sf::Keyboard::Q:
 			State::manager.RequestQuit();
@@ -187,11 +212,17 @@ void CScore::Keyb(sf::Keyboard::Key key, bool release, int x, int y) {
 		case sf::Keyboard::L:
 			Score.LoadHighScore();
 			break;
-		case sf::Keyboard::Return:
-			State::manager.RequestEnterState(*State::manager.PreviousState());
-			break;
 		default:
       			break;
+	}
+}
+
+void CScore::exit() {
+	if (g_game.race_finished_with_highscore) {
+		g_game.race_finished_with_highscore = false;
+		State::manager.RequestEnterState(RaceSelect);
+	} else {
+		State::manager.RequestEnterState(*State::manager.PreviousState());
 	}
 }
 
@@ -199,7 +230,7 @@ void CScore::Mouse(int button, int state, int x, int y) {
 	if (state == 1) {
 		TWidget* clicked = ClickGUI(x, y);
 		if (clicked == textbutton)
-			State::manager.RequestEnterState(*State::manager.PreviousState());
+			exit();
 	}
 }
 

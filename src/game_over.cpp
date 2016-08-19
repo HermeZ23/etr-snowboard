@@ -39,6 +39,7 @@ GNU General Public License for more details.
 #include "winsys.h"
 #include "physics.h"
 #include "tux.h"
+#include "regist.h"
 
 CGameOver GameOver;
 
@@ -47,7 +48,13 @@ static int highscore_pos = MAX_SCORES;
 
 void QuitGameOver() {
 	if (g_game.game_type == PRACTICING) {
-		State::manager.RequestEnterState(RaceSelect);
+		if (highscore_pos <= MAX_SCORES) {
+			g_game.race_finished_with_highscore = true;
+			State::manager.RequestEnterState(Regist);
+		} else {
+			State::manager.RequestEnterState(RaceSelect);
+		}
+		
 	} else {
 		State::manager.RequestEnterState(Event);
 	}
@@ -55,7 +62,8 @@ void QuitGameOver() {
 
 void CGameOver::Keyb(sf::Keyboard::Key key, bool release, int x, int y) {
 	if (release) return;
-	if (key == 13 || key == sf::Keyboard::Escape) QuitGameOver();
+	if (key == 13 || key == sf::Keyboard::Escape)
+		QuitGameOver();
 }
 
 void CGameOver::Mouse(int button, int state, int x, int y) {
@@ -144,7 +152,8 @@ void GameOverMessage(const CControl *ctrl) {
 
 // =========================================================================
 void CGameOver::Enter() {
-	if (!g_game.raceaborted) highscore_pos = Score.CalcRaceResult();
+	// was CalcRaceResult
+	if (!g_game.raceaborted) highscore_pos = Score.getHighScorePosition();
 
 	if (g_game.game_type == CUPRACING) {
 		if (g_game.race_result >= 0) {
