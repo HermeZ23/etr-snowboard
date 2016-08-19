@@ -48,13 +48,13 @@ static int highscore_pos = MAX_SCORES;
 
 void QuitGameOver() {
 	if (g_game.game_type == PRACTICING) {
-		if (highscore_pos <= MAX_SCORES) {
+		if (highscore_pos < MAX_SCORES) {
 			g_game.race_finished_with_highscore = true;
 			State::manager.RequestEnterState(Regist);
 		} else {
 			State::manager.RequestEnterState(RaceSelect);
 		}
-		
+
 	} else {
 		State::manager.RequestEnterState(Event);
 	}
@@ -62,7 +62,7 @@ void QuitGameOver() {
 
 void CGameOver::Keyb(sf::Keyboard::Key key, bool release, int x, int y) {
 	if (release) return;
-	if (key == 13 || key == sf::Keyboard::Escape)
+	if (key == sf::Keyboard::Return || key == sf::Keyboard::Escape)
 		QuitGameOver();
 }
 
