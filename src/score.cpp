@@ -41,7 +41,37 @@ int CScore::AddScore(const std::string& group, const std::string& course, TScore
 	int pos = 0;
 	int lastpos = num-1;
 	int val = score.points;
+	bool found = false;
 
+	
+	for (int i=0; i<num; i++) {
+		//if player is in scorelist
+		if ( !score.player.compare(list->scores[i].player) ) {
+			//if player haz more points than last time
+			if (score.points > list->scores[i].points){
+				Message(list->scores[i].player);
+				Message("besser");
+				list->scores[i] = list->scores[i+1];
+				list->numScores--;
+				found = true;
+			}else{
+				//drop out
+				return 999;
+			}
+		}else{
+			if(found){
+				//shift list elements left
+				if(!(i = num-1)){
+					list->scores[i] = list->scores[i+1];
+				}
+			}
+		}
+
+	} 
+	found = false;
+	num = list->numScores;
+
+	
 	if (num == 0) {
 		list->scores[0] = score;
 		list->numScores++;
@@ -79,7 +109,8 @@ int CScore::getHighScorePosition() {
 
 	// check if player was better than anyone in HighScore
 	for (int i=0; i<num; i++) {
-		if (g_game.score > list->scores[i].points) return i;  
+		//Message(list->scores[i].player); 
+		if (g_game.score > list->scores[i].points) return i; 
 	}
 
 	return num;
