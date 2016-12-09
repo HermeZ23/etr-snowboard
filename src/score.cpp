@@ -43,14 +43,11 @@ int CScore::AddScore(const std::string& group, const std::string& course, TScore
 	int val = score.points;
 	bool found = false;
 
-	
 	for (int i=0; i<num; i++) {
 		//if player is in scorelist
 		if ( !score.player.compare(list->scores[i].player) ) {
 			//if player haz more points than last time
 			if (score.points > list->scores[i].points){
-				Message(list->scores[i].player);
-				Message("besser");
 				list->scores[i] = list->scores[i+1];
 				list->numScores--;
 				found = true;
@@ -66,7 +63,6 @@ int CScore::AddScore(const std::string& group, const std::string& course, TScore
 				}
 			}
 		}
-
 	} 
 	found = false;
 	num = list->numScores;
