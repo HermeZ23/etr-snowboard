@@ -37,7 +37,9 @@ GNU General Public License for more details.
 #include "winsys.h"
 #include "physics.h"
 #include "tux.h"
+#include "race_select.h"
 #include <algorithm>
+#include <iostream>
 
 #define MAX_JUMP_AMT 1.0
 #define ROLL_DECAY 0.2
@@ -162,20 +164,19 @@ void CRacing::Jaxis(int axis, float value) {
 }
 
 void CRacing::Jbutt(int button, bool pressed) {
+	std::cout << "Button pressed: " << button << "\n";
+	if (!pressed) return;
+
+
 	switch (button) {
 		case 0:
-			key_paddling = pressed;
+			State::manager.RequestEnterState(RaceSelect);
 			break;
 		case 1:
-			trick_modifier = pressed;
-			break;
-		case 2:
-			key_braking = pressed;
-			break;
-		case 3:
-			key_charging = pressed;
+			State::manager.RequestEnterState(Reset);
 			break;
 	}
+	//*/
 }
 
 static void CalcJumpEnergy(float time_step) {

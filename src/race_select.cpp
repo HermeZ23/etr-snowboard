@@ -33,6 +33,7 @@ GNU General Public License for more details.
 #include "game_type_select.h"
 #include "loading.h"
 #include "winsys.h"
+#include <iostream>
 
 CRaceSelect RaceSelect;
 
@@ -101,6 +102,17 @@ void CRaceSelect::Mouse(int button, int state, int x, int y) {
 		}
 
 		UpdateInfo();
+	}
+}
+
+void CRaceSelect::Jbutt(int index, bool pressed) {
+	if (!pressed) return;
+
+	switch (index) {
+		case 0:
+			std::cout << "Snowboard said start" << "\n" << std::flush;
+			SetRaceConditions();
+			break;
 	}
 }
 

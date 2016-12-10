@@ -22,6 +22,7 @@ GNU General Public License for more details.
 #include "states.h"
 #include "ogl.h"
 #include "winsys.h"
+#include <iostream>
 
 State::Manager State::manager(Winsys);
 
@@ -93,6 +94,7 @@ void State::Manager::PollEvent() {
 				}
 				case sf::Event::JoystickButtonPressed:
 				case sf::Event::JoystickButtonReleased:
+					//std::cout << "Joystick\n" << std::flush;
 					current->Jbutt(event.joystickButton.button, event.type == sf::Event::JoystickButtonPressed);
 					break;
 

@@ -26,6 +26,7 @@ class CRaceSelect : public State {
 	void Loop(float time_step);
 	void Keyb(sf::Keyboard::Key key, bool release, int x, int y);
 	void Mouse(int button, int state, int x, int y);
+	void Jbutt(int index, bool pressed);
 	void Motion(int x, int y);
 public:
 };
