@@ -33,6 +33,7 @@ GNU General Public License for more details.
 #include "score.h"
 #include "regist.h"
 #include "winsys.h"
+#include "race_select.h"
 
 CSplashScreen SplashScreen;
 sf::Text* Failure = nullptr;
@@ -91,12 +92,29 @@ void CSplashScreen::Loop(float timestep) {
 					reason += Trans.Text(96) + "\n";
 			} else
 				reason += Trans.Text(92) + "\n";
-		} else
+		} else {
 			reason += Trans.Text(94) + "\n";
+		}
 
-		if (reason.isEmpty())
-			State::manager.RequestEnterState(Regist);
-		else { // Failure
+		if (reason.isEmpty()) {
+			if (g_game.ccc_mode) {
+
+				int player_number = 0;
+				int character_number = 0;
+
+				//std::cout << "\n----------- Setting up 33C3 mode ----------------";
+				Players.LoadPlayers();
+				Players.ResetControls();
+				Players.AllocControl(player_number);
+				g_game.player = Players.GetPlayer(player_number);
+				g_game.character = &Char.CharList[character_number];
+				g_game.game_type = PRACTICING;
+
+				State::manager.RequestEnterState(RaceSelect);
+			} else {
+				State::manager.RequestEnterState(Regist);
+			}
+		} else { // Failure
 			FT.AutoSizeN(6);
 			int top = AutoYPosN(60);
 			Failure = new sf::Text(reason, FT.getCurrentFont(), FT.GetSize());

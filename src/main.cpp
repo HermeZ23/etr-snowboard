@@ -32,6 +32,7 @@ GNU General Public License for more details.
 #include <ctime>
 #include <cstring>
 
+
 TGameData g_game;
 
 void InitGame(int argc, char **argv) {
@@ -44,6 +45,8 @@ void InitGame(int argc, char **argv) {
 	} else if (argc == 2) {
 		if (std::strcmp(argv[1], "9") == 0)
 			g_game.argument = 9;
+		else if (std::strcmp(argv[1], "ccc") == 0)
+			g_game.argument = 2;
 	}
 
 	g_game.player = nullptr;
@@ -59,6 +62,7 @@ void InitGame(int argc, char **argv) {
 	g_game.force_treemap = false;
 	g_game.treesize = 3;
 	g_game.treevar = 3;
+	g_game.ccc_mode = false;
 }
 
 int main(int argc, char **argv) {
@@ -87,6 +91,11 @@ int main(int argc, char **argv) {
 
 	switch (g_game.argument) {
 		case 0:
+			State::manager.Run(SplashScreen);
+			break;
+		case 2:
+			g_game.ccc_mode = true;
+			std::cout << "\n----------- Setting up 33C3 mode ----------------";
 			State::manager.Run(SplashScreen);
 			break;
 		case 4:

@@ -80,6 +80,8 @@ struct TGameData {
 	int herring;			// catched herrings during the race
 	int race_result;		// tuxlifes, only for a single race, see game_ctrl
 	bool raceaborted;
+
+	bool ccc_mode;
 };
 
 class CControl;
