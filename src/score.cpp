@@ -286,6 +286,7 @@ static int linedist, listtop;
 static int dd1, dd2, dd3, dd4;
 
 void CScore::Enter() {
+	Score.SaveHighScore();
 	Winsys.ShowCursor(!param.ice_cursor);
 	Music.Play(param.menu_music, true);
 
