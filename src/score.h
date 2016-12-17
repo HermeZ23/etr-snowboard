@@ -22,7 +22,7 @@ GNU General Public License for more details.
 #include "spx.h"
 #include <map>
 
-#define MAX_SCORES 8
+#define MAX_SCORES 900
 
 struct TScore {
 	std::string player;
