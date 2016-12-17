@@ -194,6 +194,24 @@ void CRaceSelect::Enter() {
 	course = AddUpDown(area.left + framewidth + 8, frametop + frameheight + 20, 0, (int)Course.currentCourseList->size() - 1, g_game.course ? (int)Course.GetCourseIdx(g_game.course) : 0);
 	courseName = AddFramedText(area.left, frametop + frameheight + 20, framewidth, frameheight, 3, colMBackgr, "", FT.GetSize(), true);
 
+	AddLabel(
+		"Completed Games on 33C3:",
+		Winsys.resolution.width - 230,
+		45,
+		colYellow
+	);
+	AddFramedText(
+		Winsys.resolution.width - 200,
+		80,
+		framewidth / 2,
+		frameheight,
+		3,
+		colMBackgr,
+		std::to_string(g_game.num_completed_games),
+		FT.GetSize(),
+		true
+	);
+
 	SetFocus(course);
 }
 

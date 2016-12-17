@@ -63,6 +63,7 @@ void InitGame(int argc, char **argv) {
 	g_game.treesize = 3;
 	g_game.treevar = 3;
 	g_game.ccc_mode = false;
+	g_game.num_completed_games = 0;
 }
 
 int main(int argc, char **argv) {
@@ -95,7 +96,7 @@ int main(int argc, char **argv) {
 			break;
 		case 2:
 			g_game.ccc_mode = true;
-			std::cout << "\n----------- Setting up 33C3 mode ----------------";
+			std::cout << "\n----------- Setting up 33C3 mode ----------------" << std::flush;
 			State::manager.Run(SplashScreen);
 			break;
 		case 4:

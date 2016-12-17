@@ -30,6 +30,8 @@ GNU General Public License for more details.
 #include "spx.h"
 #include "winsys.h"
 #include "race_select.h"
+#include <sstream>
+#include <iostream>
 
 CScore Score;
 
@@ -267,6 +269,35 @@ void CScore::Motion(int x, int y) {
 	if (param.ui_snow) push_ui_snow(cursor_pos);
 }
 
+void CScore::IncrementNumberOfFinishedGames() {
+	g_game.num_completed_games++;
+}
+
+void CScore::SaveNumCompletedGames() {
+	CSPList liste;
+	liste.Add(std::to_string(g_game.num_completed_games));
+	liste.Add();
+	// ---------------------------------------
+	liste.Save(param.config_dir + SEP "num_completed");
+}
+
+int CScore::LoadNumCompletedGames() {
+	CSPList liste;
+
+	liste.Load(param.config_dir + SEP "num_completed");
+
+	std::string s = *liste.cbegin();
+	std::cout << s << "\n";
+
+	int val;
+	std::istringstream is(s);
+	is >> val;
+	if (is.fail()) val = 99;
+
+	g_game.num_completed_games = val;
+}
+
+
 static TArea area;
 static int linedist, listtop;
 static int dd1, dd2, dd3, dd4;
@@ -301,6 +332,10 @@ void CScore::Enter() {
 	FT.AutoSizeN(4);
 	courseGroupName = AddFramedText(area.left, frametop - 2, framewidth, frameheight, 3, colMBackgr, "default", FT.GetSize(), true);
 	courseName = AddFramedText(area.left, frametop - 2 + frameheight + 20, framewidth, frameheight, 3, colMBackgr, "", FT.GetSize(), true);
+
+	LoadNumCompletedGames();
+	IncrementNumberOfFinishedGames();
+	SaveNumCompletedGames();
 }
 
 void CScore::Loop(float timestep) {

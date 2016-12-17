@@ -82,6 +82,7 @@ struct TGameData {
 	bool raceaborted;
 
 	bool ccc_mode;
+	int num_completed_games;
 };
 
 class CControl;

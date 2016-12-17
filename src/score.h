@@ -55,6 +55,9 @@ public:
 	int AddScore(const std::string& group, const std::string& course, TScore&& score);
 	int getHighScorePosition();
 	const TScoreList* GetScorelist(const std::string& group, const std::string& course) const;
+	void IncrementNumberOfFinishedGames();
+	int LoadNumCompletedGames();
+	void SaveNumCompletedGames();
 	void PrintScorelist(const std::string& group, const std::string& course) const;
 	bool SaveHighScore() const;
 	bool LoadHighScore();
