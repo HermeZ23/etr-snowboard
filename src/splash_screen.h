@@ -23,6 +23,7 @@ GNU General Public License for more details.
 
 class CSplashScreen : public State {
 	void Enter();
+	void LoadNumCompletedGames();
 	void Loop(float time_step);
 public:
 };

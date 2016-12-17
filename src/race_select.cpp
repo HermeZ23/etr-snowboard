@@ -196,14 +196,14 @@ void CRaceSelect::Enter() {
 
 	AddLabel(
 		"Completed Games on 33C3:",
-		Winsys.resolution.width - 230,
-		45,
+		Winsys.resolution.width - 310*Winsys.scale,
+		45*Winsys.scale,
 		colYellow
 	);
 	AddFramedText(
-		Winsys.resolution.width - 200,
-		80,
-		framewidth / 2,
+		Winsys.resolution.width - 200*Winsys.scale,
+		85*Winsys.scale,
+		framewidth / 4,
 		frameheight,
 		3,
 		colMBackgr,

@@ -34,6 +34,7 @@ GNU General Public License for more details.
 #include "regist.h"
 #include "winsys.h"
 #include "race_select.h"
+#include <sstream>
 
 CSplashScreen SplashScreen;
 sf::Text* Failure = nullptr;
@@ -43,6 +44,19 @@ sf::String reason;
 void CSplashScreen::Enter() {
 	Winsys.ShowCursor(!param.ice_cursor);
 	Music.Play(param.menu_music, true);
+}
+
+void CSplashScreen::LoadNumCompletedGames() {
+	CSPList liste;
+
+	liste.Load(param.config_dir + SEP "num_completed");
+	std::string s = *liste.cbegin();
+	int val;
+	std::istringstream is(s);
+	is >> val;
+	if (is.fail()) val = 99;
+
+	g_game.num_completed_games = val;
 }
 
 void CSplashScreen::Loop(float timestep) {
@@ -109,6 +123,8 @@ void CSplashScreen::Loop(float timestep) {
 				g_game.player = Players.GetPlayer(player_number);
 				g_game.character = &Char.CharList[character_number];
 				g_game.game_type = PRACTICING;
+
+				LoadNumCompletedGames();
 
 				State::manager.RequestEnterState(RaceSelect);
 			} else {
