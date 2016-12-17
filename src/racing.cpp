@@ -109,19 +109,19 @@ void CRacing::Keyb(sf::Keyboard::Key key, bool release, int x, int y) {
 			break;
 
 		// view changing
-		case sf::Keyboard::Num1:
+		case sf::Keyboard::F1:
 			if (!release) {
 				set_view_mode(g_game.player->ctrl, ABOVE);
 				param.view_mode = ABOVE;
 			}
 			break;
-		case sf::Keyboard::Num2:
+		case sf::Keyboard::F2:
 			if (!release) {
 				set_view_mode(g_game.player->ctrl, FOLLOW);
 				param.view_mode = FOLLOW;
 			}
 			break;
-		case sf::Keyboard::Num3:
+		case sf::Keyboard::F3:
 			if (!release) {
 				set_view_mode(g_game.player->ctrl, BEHIND);
 				param.view_mode = BEHIND;
@@ -165,15 +165,26 @@ void CRacing::Jaxis(int axis, float value) {
 
 void CRacing::Jbutt(int button, bool pressed) {
 	std::cout << "Button pressed: " << button << "\n";
-	if (!pressed) return;
-
-
 	switch (button) {
 		case 0:
+			if (!pressed) return;
 			State::manager.RequestEnterState(RaceSelect);
 			break;
 		case 1:
+			if (!pressed) return;
 			State::manager.RequestEnterState(Reset);
+			break;
+		case 20:
+			key_paddling = pressed;
+			break;
+		case 13:
+			key_braking = pressed;
+			break;
+		case 14:
+			key_charging = pressed;
+			break;
+		case 15:
+			trick_modifier = pressed;
 			break;
 	}
 	//*/
