@@ -158,7 +158,7 @@ void CEnvironment::LoadSkyboxSide(std::size_t index, const std::string& EnvDir, 
 void CEnvironment::LoadSkybox(const std::string& EnvDir, bool high_res) {
 	Skybox = new TTexture[param.full_skybox ? 7 : 4];
 	LoadSkyboxSide(0, EnvDir, "front", high_res);
-	LoadSkyboxSide(param.full_skybox ? 6 : 3, EnvDir, "nogame1", high_res);
+	LoadSkyboxSide(param.full_skybox ? 6 : 3, EnvDir, "nogame" + g_game.no_game_day , high_res);
 	LoadSkyboxSide(1, EnvDir, "left", high_res);
 	LoadSkyboxSide(2, EnvDir, "right", high_res);
 	if (param.full_skybox) {

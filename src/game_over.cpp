@@ -201,7 +201,13 @@ void CGameOver::Loop(float time_step) {
 	if (final_frame != nullptr) final_frame->Update(time_step);
 
 	SetupViewFrustum(ctrl);
-	Env.DrawSkybox(ctrl->viewpos, false);
+
+	if ((g_game.herring == 6) && (g_game.no_game_day.compare("0") != 0) ){
+		Env.DrawSkybox(ctrl->viewpos, true);
+	}else{
+		Env.DrawSkybox(ctrl->viewpos, false);
+	}
+
 	Env.DrawFog();
 	Env.SetupLight();
 

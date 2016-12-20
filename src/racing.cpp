@@ -397,10 +397,8 @@ void CRacing::Loop(float time_step) {
 	if (g_game.finish) IncCameraDistance(time_step);
 	update_view(ctrl, time_step);
 	UpdateTrackmarks(ctrl);
-	Message(Float_StrN(time_step,8));
 	SetupViewFrustum(ctrl);
-	if ((g_game.herring == 6) && !noG ){
-//		Message("There iz no Game!!11!!!");
+	if ((g_game.herring == 6) && (g_game.no_game_day.compare("0")  != 0) ){
 		if( ((int)(time_step * 1000000)) % 17 == 0)
 			noG = true;
 	}else{
