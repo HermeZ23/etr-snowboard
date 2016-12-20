@@ -9,6 +9,7 @@ pkgdata_DATA = \
 	tree_barren2.png	\
 	herring.png	\
 	start.png	\
-	finish.png
+	finish.png \
+	finish_no_game.png
 
 EXTRA_DIST = $(pkgdata_DATA)

@@ -127,6 +127,13 @@ void DrawTrees() {
 
 		if (&Course.NocollArr[i].type != item_type) {
 			item_type = &Course.NocollArr[i].type;
+
+			// no game
+			bool draw_finish = item_type->name.compare("finish") == 0;
+			if ( draw_finish && (g_game.herring == 6) && (g_game.no_game_day.compare("0")  != 0) ){
+				item_type->texture->Load(param.obj_dir + SEP + "finish_no_game.png");
+			}
+
 			item_type->texture->Bind();
 		}
 
