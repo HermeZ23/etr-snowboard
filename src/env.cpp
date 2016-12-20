@@ -156,9 +156,9 @@ void CEnvironment::LoadSkyboxSide(std::size_t index, const std::string& EnvDir, 
 }
 
 void CEnvironment::LoadSkybox(const std::string& EnvDir, bool high_res) {
-	Skybox = new TTexture[param.full_skybox ? 7 : 3];
+	Skybox = new TTexture[param.full_skybox ? 7 : 4];
 	LoadSkyboxSide(0, EnvDir, "front", high_res);
-	LoadSkyboxSide(6, EnvDir, "nogame", high_res);
+	LoadSkyboxSide(param.full_skybox ? 6 : 3, EnvDir, "nogame1", high_res);
 	LoadSkyboxSide(1, EnvDir, "left", high_res);
 	LoadSkyboxSide(2, EnvDir, "right", high_res);
 	if (param.full_skybox) {
@@ -231,7 +231,7 @@ void CEnvironment::DrawSkybox(const TVector3d& pos, bool no_game) const {
 		-1,  1, -1
 	};
 	if (no_game)
-		Skybox[6].Bind();
+		Skybox[param.full_skybox ? 6 : 3].Bind();
 	else
 		Skybox[0].Bind();
 	glVertexPointer(3, GL_SHORT, 0, front);
