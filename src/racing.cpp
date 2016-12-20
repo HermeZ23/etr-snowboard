@@ -380,6 +380,7 @@ void CRacing::Loop(float time_step) {
 	CControl *ctrl = g_game.player->ctrl;
 	double ycoord = Course.FindYCoord(ctrl->cpos.x, ctrl->cpos.z);
 	bool airborne = (bool)(ctrl->cpos.y > (ycoord + JUMP_MAX_START_HEIGHT));
+	bool noG = false;
 
 	ClearRenderContext();
 	Env.SetupFog();
@@ -396,14 +397,18 @@ void CRacing::Loop(float time_step) {
 	if (g_game.finish) IncCameraDistance(time_step);
 	update_view(ctrl, time_step);
 	UpdateTrackmarks(ctrl);
-
+	Message(Float_StrN(time_step,8));
 	SetupViewFrustum(ctrl);
-	if (g_game.herring == 6 ){
+	if ((g_game.herring == 6) && !noG ){
 //		Message("There iz no Game!!11!!!");
-		if (sky) Env.DrawSkybox(ctrl->viewpos, true);
+		if( ((int)(time_step * 1000000)) % 17 == 0)
+			noG = true;
 	}else{
-		if (sky) Env.DrawSkybox(ctrl->viewpos, false);
+		noG = false;
 	}
+
+	if (sky) Env.DrawSkybox(ctrl->viewpos, noG);
+
 	if (fog) Env.DrawFog();
 	Env.SetupLight();
 	if (terr) RenderCourse();
