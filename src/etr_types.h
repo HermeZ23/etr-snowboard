@@ -83,6 +83,7 @@ struct TGameData {
 
 	bool ccc_mode;
 	int num_completed_games;
+	std::string no_game_day;
 };
 
 class CControl;

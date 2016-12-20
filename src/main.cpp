@@ -38,6 +38,7 @@ TGameData g_game;
 void InitGame(int argc, char **argv) {
 	g_game.toolmode = NONE;
 	g_game.argument = 0;
+	g_game.no_game_day = "0";
 	if (argc == 4) {
 		if (std::strcmp("--char", argv[1]) == 0)
 			g_game.argument = 4;
@@ -47,6 +48,9 @@ void InitGame(int argc, char **argv) {
 			g_game.argument = 9;
 		else if (std::strcmp(argv[1], "ccc") == 0)
 			g_game.argument = 2;
+	} else if (argc == 3) {
+		g_game.argument = 2;
+		g_game.no_game_day = argv[2];
 	}
 
 	g_game.player = nullptr;
@@ -64,6 +68,8 @@ void InitGame(int argc, char **argv) {
 	g_game.treevar = 3;
 	g_game.ccc_mode = false;
 	g_game.num_completed_games = 0;
+
+	std::cout << "No Game Day: " << g_game.no_game_day << "\n";
 }
 
 int main(int argc, char **argv) {
