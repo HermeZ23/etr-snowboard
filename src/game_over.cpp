@@ -201,7 +201,7 @@ void CGameOver::Loop(float time_step) {
 	if (final_frame != nullptr) final_frame->Update(time_step);
 
 	SetupViewFrustum(ctrl);
-	Env.DrawSkybox(ctrl->viewpos);
+	Env.DrawSkybox(ctrl->viewpos, false);
 	Env.DrawFog();
 	Env.SetupLight();
 

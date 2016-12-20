@@ -60,7 +60,7 @@ void CReset::Loop(float time_step) {
 	ctrl->UpdatePlayerPos(EPS);
 	update_view(ctrl, EPS);
 	SetupViewFrustum(ctrl);
-	Env.DrawSkybox(ctrl->viewpos);
+	Env.DrawSkybox(ctrl->viewpos, false);
 	Env.DrawFog();
 	Env.SetupLight();
 	RenderCourse();

@@ -107,7 +107,7 @@ void CIntro::Loop(float time_step) {
 	update_view(ctrl, time_step);
 	SetupViewFrustum(ctrl);
 
-	Env.DrawSkybox(ctrl->viewpos);
+	Env.DrawSkybox(ctrl->viewpos, false);
 
 	Env.DrawFog();
 	Env.SetupLight();

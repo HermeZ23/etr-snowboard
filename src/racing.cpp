@@ -398,7 +398,12 @@ void CRacing::Loop(float time_step) {
 	UpdateTrackmarks(ctrl);
 
 	SetupViewFrustum(ctrl);
-	if (sky) Env.DrawSkybox(ctrl->viewpos);
+	if (g_game.herring == 6 ){
+//		Message("There iz no Game!!11!!!");
+		if (sky) Env.DrawSkybox(ctrl->viewpos, true);
+	}else{
+		if (sky) Env.DrawSkybox(ctrl->viewpos, false);
+	}
 	if (fog) Env.DrawFog();
 	Env.SetupLight();
 	if (terr) RenderCourse();
@@ -413,6 +418,9 @@ void CRacing::Loop(float time_step) {
 	UpdateSnow(time_step, ctrl);
 	DrawSnow(ctrl);
 	DrawHud(ctrl);
+
+
+
 
 	Reshape(Winsys.resolution.width, Winsys.resolution.height);
 	Winsys.SwapBuffers();

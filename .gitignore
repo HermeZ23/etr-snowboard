@@ -47,3 +47,5 @@ missing
 src/.deps/
 src/etr
 stamp-h1
+/.cproject
+/.project

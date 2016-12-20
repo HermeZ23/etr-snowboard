@@ -76,7 +76,7 @@ public:
 	CEnvironment();
 	bool LoadEnvironmentList();
 	void LoadEnvironment(std::size_t loc, std::size_t light);
-	void DrawSkybox(const TVector3d& pos) const;
+	void DrawSkybox(const TVector3d& pos, bool no_game) const;
 	void SetupLight();
 	void SetupFog();
 	void DrawFog() const;
