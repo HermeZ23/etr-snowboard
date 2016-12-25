@@ -49,3 +49,6 @@ src/etr
 stamp-h1
 /.cproject
 /.project
+/.settings
+/.metadata
+/RemoteSystemsTempFiles
